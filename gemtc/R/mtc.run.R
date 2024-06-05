@@ -19,7 +19,7 @@ mtc.model.run <- function(network, type, ...) {
 
 # If is.na(sampler), a sampler will be chosen based on availability, in this order:
 # JAGS, BUGS. When the sampler is BUGS, BRugs or R2WinBUGS will be used.
-mtc.run <- function(model, sampler=NA, n.adapt=5000, n.iter=20000, thin=1) {
+mtc.run <- function(model, sampler=NA, n.adapt=5000, n.burnin=0, n.iter=20000, thin=1) {
   if (!is.na(sampler)) {
     if (sampler %in% c("JAGS", "rjags")) {
       warning("Setting the sampler is deprecated.")
@@ -44,7 +44,7 @@ mtc.build.syntaxModel <- function(model) {
   )
 }
 
-mtc.sample <- function(model, n.adapt=n.adapt, n.iter=n.iter, thin=thin) {
+mtc.sample <- function(model, n.adapt=n.adapt, n.burnin=n.burnin, n.iter=n.iter, thin=thin) {
   # generate JAGS model
   syntax <- mtc.build.syntaxModel(model)
 
@@ -64,6 +64,9 @@ mtc.sample <- function(model, n.adapt=n.adapt, n.iter=n.iter, thin=thin) {
     inits=syntax[['inits']],
     n.chains=model[['n.chain']],
     n.adapt=n.adapt)
+  
+  update(jags, n.iter=n.burnin)
+  
   samples <- rjags::coda.samples(jags, variable.names=vars,
                                  n.iter=n.iter, thin=thin)
   unlink(file.model)
