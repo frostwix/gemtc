@@ -28,7 +28,7 @@ mtc.run <- function(model, sampler=NA, n.adapt=5000, n.burnin=0, n.iter=20000, t
     }
   }
 
-  result <- mtc.sample(model, n.adapt=n.adapt, n.iter=n.iter, thin=thin)
+  result <- mtc.sample(model, n.adapt=n.adapt, n.burnin = n.burnin, n.iter=n.iter, thin=thin)
 
   result <- c(result, list(model = model))
   class(result) <- "mtc.result"
@@ -44,7 +44,7 @@ mtc.build.syntaxModel <- function(model) {
   )
 }
 
-mtc.sample <- function(model, n.adapt=n.adapt, n.burnin=n.burnin, n.iter=n.iter, thin=thin) {
+mtc.sample <- function(model, n.adapt, n.burnin, n.iter, thin) {
   # generate JAGS model
   syntax <- mtc.build.syntaxModel(model)
 
@@ -65,7 +65,7 @@ mtc.sample <- function(model, n.adapt=n.adapt, n.burnin=n.burnin, n.iter=n.iter,
     n.chains=model[['n.chain']],
     n.adapt=n.adapt)
   
-  update(jags, n.iter=n.burnin)
+  if (n.burnin > 0) update(jags, n.iter=n.burnin)
   
   samples <- rjags::coda.samples(jags, variable.names=vars,
                                  n.iter=n.iter, thin=thin)

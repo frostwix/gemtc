@@ -14,7 +14,7 @@ The function \code{mtc.run} is used to generate samples from a object of type \c
 The resulting \code{mtc.result} object can be coerced to an \code{mcmc.list} for further analysis of the dataset using the \code{coda} package.
 }
 \usage{
-mtc.run(model, sampler = NA, n.adapt = 5000, n.iter = 20000, thin = 1)
+mtc.run(model, sampler = NA, n.adapt = 5000, n.burnin = 0, n.iter = 20000, thin = 1)
 
 \method{summary}{mtc.result}(object, ...)
 \method{plot}{mtc.result}(x, ...)
@@ -26,6 +26,7 @@ mtc.run(model, sampler = NA, n.adapt = 5000, n.iter = 20000, thin = 1)
   \item{model}{An object of S3 class \code{mtc.model} describing a network meta-analysis model.}
   \item{sampler}{Deprecated: gemtc now only supports the JAGS sampler. Specifying a sampler will result in a warning or error. This argument will be removed in future versions.}
   \item{n.adapt}{Amount of adaptation (or tuning) iterations.}
+  \item{n.burnin}{Amount of burn-in iterations. Has to be positive number.}
   \item{n.iter}{Amount of simulation iterations.}
   \item{thin}{Thinning factor.}
 
