@@ -1,3 +1,10 @@
+gemtc 1.0-2.9000
+===========
+
+Released 2023-06-21
+
+* Add addtional n.burnin argument to the mtc.run and mtc.sample. The update is connected with the fact that the nadapt is not equal to nburnin.
+
 gemtc 1.0-2
 ===========
 
