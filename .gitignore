@@ -4,5 +4,3 @@ gemtc.Rcheck
 gemtc_*.tar.gz
 *.so
 *.o
-.Rproj.user
-gemtc.Rproj
