@@ -29,7 +29,7 @@ mtc.run <- function(model, sampler=NA, n.adapt=5000, n.iter=20000, thin=1, n.bur
     }
   }
 
-  result <- mtc.sample(model, n.adapt=n.adapt, n.iter=n.iter, thin=thin, n.burnin = n.burnin)
+  result <- mtc.sample(model, n.adapt=n.adapt, n.iter=n.iter, thin=thin, n.burnin=n.burnin)
 
   result <- c(result, list(model = model))
   class(result) <- "mtc.result"
